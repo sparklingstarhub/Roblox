@@ -1,0 +1,184 @@
+--kkingtest
+--king legacy
+
+local Flux = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/fluxlib.txt")()
+
+local win = Flux:Window("SayuriHub", "", Color3.fromRGB(0, 99, 255), Enum.KeyCode.LeftControl)
+local tab = win:Tab("Misc", "http://www.roblox.com/asset/?id=6023426915")
+tab:Button("Teleport Clone Pets", "3BB Kak Kak Hub.", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4568.58789, 129.746597, 1429.59802, -0.785415053, 3.78900218e-08, -0.61896944, 2.14918714e-08, 1, 3.39434862e-08, 0.61896944, 1.33569147e-08, -0.785415053)
+end)
+
+tab:Button("Teleport All Island Use 60s (Press Sell Before)", "", function()
+    local CFrameEnd = CFrame.new(120.840637, 91244.6406, 81.3646698, -0.525181651, 5.54259856e-08, -0.850990176, 3.25821361e-08, 1, 4.50233699e-08, 0.850990176, -4.0816297e-09, -0.525181651) --ใส่CFrame
+local Time = 60 --ใส่เวลาที่จะไปถึง
+local tween = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Time), {CFrame = CFrameEnd}) tween:Play()
+end)
+
+tab:Button("Teleport Farm Island (Karma)", "3BB Kak Kak Hub.", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1877.80701, 38.0849037, -6794.5332, -0.979079902, -3.46193207e-09, 0.203476116, -1.24731325e-09, 1, 1.10121654e-08, -0.203476116, 1.05279918e-08, -0.979079902)
+end)
+
+tab:Button("Teleport Last Island (Karma)", "3BB Kak Kak Hub.", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(120.840637, 91244.6406, 81.3646698, -0.525181651, 5.54259856e-08, -0.850990176, 3.25821361e-08, 1, 4.50233699e-08, 0.850990176, -4.0816297e-09, -0.525181651)
+end)
+
+tab:Button("Teleport Sell Last Island (Karma)", "3BB Kak Kak Hub.", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(84.9487686, 91244.6406, 123.625374, 0.219813183, -4.07827798e-08, 0.975542009, 3.72682152e-09, 1, 4.09655136e-08, -0.975542009, -5.36908873e-09, 0.219813183)
+end)
+
+local tab = win:Tab("Auto Farm", "http://www.roblox.com/asset/?id=6023426915")
+
+tab:Toggle("Auto Swings","", false , function(a)
+    _G.S1 = a
+    if a == true then
+        S1()
+    end
+end)
+
+tab:Toggle("Auto Sale", "", false, function(a)
+    _G.S2 = a
+    if a == true then
+        S2()
+    end
+end)
+
+tab:Toggle("Auto Buy Swords", "", false ,function(a)
+    _G.S3 = a 
+    if a == true then
+        S3()
+    end
+end)
+
+tab:Toggle("Auto Buy Belts", "",false, function()
+    _G.S4 = a
+    if a == true then
+        S4()
+    end
+end)
+
+tab:Toggle("Auto Buy Upgrad Rabk", "",false, function()
+    _G.S5 = a
+    if a == true then
+        S5()
+    end
+end)
+
+local tab = win:Tab("Server", "http://www.roblox.com/asset/?id=6023426915")
+
+tab:Button("Rejoin", "", function()
+    game:GetService("TeleportService"):Teleport(3956818381, game:GetService("Players").LocalPlayer) 
+end)
+
+tab:Button("Server Hop", "", function()
+            local PlaceID = 3956818381
+local AllIDs = {}
+local foundAnything = ""
+local actualHour = os.date("!*t").hour
+local Deleted = false
+local File = pcall(function()
+    AllIDs = game:GetService('HttpService'):JSONDecode(readfile("NotSameServers.json"))
+end)
+if not File then
+    table.insert(AllIDs, actualHour)
+    writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+end
+function TPReturner()
+    local Site;
+    if foundAnything == "" then
+        Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
+    else
+        Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. foundAnything))
+    end
+    local ID = ""
+    if Site.nextPageCursor and Site.nextPageCursor ~= "null" and Site.nextPageCursor ~= nil then
+        foundAnything = Site.nextPageCursor
+    end
+    local num = 0;
+    for i,v in pairs(Site.data) do
+        local Possible = true
+        ID = tostring(v.id)
+        if tonumber(v.maxPlayers) > tonumber(v.playing) then
+            for _,Existing in pairs(AllIDs) do
+                if num ~= 0 then
+                    if ID == tostring(Existing) then
+                        Possible = false
+                    end
+                else
+                    if tonumber(actualHour) ~= tonumber(Existing) then
+                        local delFile = pcall(function()
+                            delfile("NotSameServers.json")
+                            AllIDs = {}
+                            table.insert(AllIDs, actualHour)
+                        end)
+                    end
+                end
+                num = num + 1
+            end
+            if Possible == true then
+                table.insert(AllIDs, ID)
+                wait()
+                pcall(function()
+                    writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+                    wait()
+                    game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
+                end)
+                wait(4)
+            end
+        end
+    end
+end
+
+function Teleport()
+    while wait() do
+        pcall(function()
+            TPReturner()
+            if foundAnything ~= "" then
+                TPReturner()
+            end
+        end)
+    end
+end
+
+-- If you'd like to use a script before server hopping (Like a Automatic Chest collector you can put the Teleport() after it collected everything.
+Teleport()
+end)
+
+function S1()
+local args = {
+    [1] = "swingKatana"
+}
+    
+game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(unpack(args))
+end
+
+function S2()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(85.5161057, 91312.2734, 122.765144, 0.354629129, -0.747508407, 0.561666489, 0.412754655, 0.664164722, 0.623312831, -0.838970721, 0.0107855648, 0.544069767)
+end
+
+function S3()
+    local args = {
+    [1] = "buyAllSwords",
+    [2] = "Blazing Vortex Island"
+}
+    
+game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(unpack(args))
+end
+
+function S4()
+local args = {
+    [1] = "buyAllBelts",
+    [2] = "Blazing Vortex Island"
+}
+    
+game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(unpack(args))
+end
+
+function S4()
+local args = {
+        [1] = "buyAllRanks",
+        [2] = "Inner Peace Island"
+}
+    
+game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(unpack(args))
+end
