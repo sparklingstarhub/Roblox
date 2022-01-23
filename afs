@@ -42,7 +42,6 @@ while _G.k == true do
     end
 end
 end
-end)
 end
 
 local Section = win:Tab("Summon Defense", "")
