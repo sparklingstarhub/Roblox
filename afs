@@ -1,0 +1,532 @@
+--afs
+--------------------------------
+local Flux = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/fluxlib.txt")()
+local win = Flux:Window("SayuriHub", "Anime Fighters Simulator", Color3.fromRGB(178, 102, 255), Enum.KeyCode.RightControl)
+local Main = win:Tab("Main Function", "http://www.wroblox.com/asset/?id=6023426915")
+
+-- \ Variables \
+local rs = game:GetService("ReplicatedStorage")
+local ws = game:GetService("Workspace")
+local ts = game:GetService("TweenService")
+local Players = game:GetService("Players")
+local Clients = Players.LocalPlayer
+
+local h = {}
+for i,v in pairs(game:GetService("Workspace").Worlds[game.Players.LocalPlayer.World.Value].Enemies:GetChildren()) do
+if not table.find(h, v.Name) then
+    table.insert(h, v.Name)
+end
+end
+Main:Label("Auto Farm Function (not waork)")
+Main:Dropdown("Select Enemies", {unpack(h)}, function(t)
+    _G.m = t
+end)
+
+Main:Toggle("Auto Farm", "", false, function(u)
+    _G.k = u
+    if u == true then
+        AutoFarm()
+end end) 
+
+function AutoFarm()
+while _G.k == true do 
+    wait()
+    for i,v in pairs(ws.Worlds[Clients.World.Value].Enemies:GetChildren()) do
+        if v.Name == _G.m then
+            repeat wait()
+            local T_1,T_2 = ts,TweenInfo.new(1,Enum.EasingStyle.Linear)
+            local T_3 = T_1:Create(Clients.Character.PrimaryPart,T_2,{CFrame = v.PrimaryPart.CFrame})
+            T_3:Play()
+            rs.Bindable.SendPet:Fire(v, true, false);
+        until not v or not v.PrimaryPart or not v.Health or v.Health.Value == 0
+    end
+end
+end
+end)
+end
+
+local Section = win:Tab("Summon Defense", "")
+Section:Button("SummonDefense Jojo", "SummonDefense Jojo", function()
+    Flux:Notification("Successfully summoned", "Alright")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remote.RedeemCode:InvokeServer("1milfaves")
+    wait(0.5)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(74.1049881, -180.835464, -2313.43115, -0.49450931, -1.51329935e-08, -0.869172513, -8.02247713e-11, 1, -1.73651742e-08, 0.869172513, -8.51751381e-09, -0.49450931)
+    wait(0.5)
+    game:GetService("ReplicatedStorage").Remote.SummonTitan:FireServer(workspace.Worlds.Jojo.TitanSummon.Trigger)
+    wait(0.1)
+end)
+
+Section:Button("SummonDefense AOT", "SummonDefense AOT", function ()
+    Flux:Notification("Successfully summoned", "Alright")
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.RedeemCode:InvokeServer("1milfaves")
+        wait(0.5)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-755.057007, -179.575714, 632.108521, -0.615179837, -1.16524328e-08, 0.788387179, -1.23029e-08, 1, 5.18011811e-09, -0.788387179, -6.51274101e-09, -0.615179837)
+        wait(0.5)
+        game:GetService("ReplicatedStorage").Remote.SummonTitan:FireServer(workspace.Worlds.AOT.TitanSummon.Trigger)
+        wait(0.1)
+end)
+
+Section:Button("SummonDefense JJK", "SummonDefense JJK", function ()
+    Flux:Notification("Successfully summoned", "Alright")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remote.RedeemCode:InvokeServer("1milfaves")
+    wait(0.5)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1908.64465, -180.531677, -2379.28784, 0.293392986, -5.21170637e-16, -0.955991685, -1.77635684e-15, 1, 0, 0.955991685, -1.69818237e-15, 0.293392986)
+    wait(0.5)
+    game:GetService("ReplicatedStorage").Remote.SummonTitan:FireServer(workspace.Worlds.JJK.TitanSummon.Trigger)
+    wait(0.5)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3805.25439, -186.450363, 890.386414, 1, -7.37264756e-08, 1.92399688e-14, 7.37264756e-08, 1, -8.86048426e-08, -1.27074458e-14, 8.86048426e-08, 1)
+   wait(0.5)
+end)
+
+Section:Button("SummonDefense BlackClover", "SummonDefense BlackClover", function()
+    Flux:Notification("Successfully summoned", "Alright")
+ game:GetService("ReplicatedStorage").Remote.RedeemCode:InvokeServer("1milfaves")
+ wait(0.1)
+ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-169.10907, -197.15477, -4094.1062, -0.326918453, -5.76443497e-08, -0.945051849, -3.19380156e-12, 1, -6.09948643e-08, 0.945051849, -1.99373531e-08, -0.326918453)
+ wait(1)
+ game:GetService("ReplicatedStorage").Remote.SummonTitan:FireServer(workspace.Worlds.BlackClover.TitanSummon.Trigger)
+ wait(0.1)
+end)
+
+Section:Button("SummonDefense ROR", "SummonDefense ROR", function()
+    Flux:Notification("Successfully summoned", "Alright")
+    game:GetService("ReplicatedStorage").Remote.RedeemCode:InvokeServer("1milfaves")
+    wait(0.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1886.55786, -185.024963, 5544.33447, -0.992395401, 2.88657116e-08, -0.123090975, 2.12891003e-08, 1, 6.28681889e-08, 0.123090975, 5.97696044e-08, -0.992395401)
+    wait(1) 
+    local A_1 = game:GetService("Workspace").Worlds.RoR.TitanSummon.Trigger
+    local Event = game:GetService("ReplicatedStorage").Remote.SummonTitan
+    Event:FireServer(A_1)
+end)
+
+--------------------------------
+local AutoFarm0 = win:Tab("Egg", "")
+
+AutoFarm0:Toggle("Auto OpenEgg DBZ MAX", "", false, function(a)
+   _G.GokuEgg = a
+   if a == true then
+       GokuEgg()
+end end) 
+
+AutoFarm0:Toggle("Auto OpenEgg Naruto MAX", "", false, function(a)
+   _G.NarutoEgg = a
+   if a == true then
+       NarutoEgg()
+end end) 
+
+AutoFarm0:Toggle("Auto OpenEgg Jojo Max", "", false, function(a)
+   _G.JojoEgg = a
+   if a == true then
+       JojoEgg()
+end end) 
+
+AutoFarm0:Toggle("Auto OpenEgg OnePiece Max", "", false, function(a)
+   _G.OnePieceEgg = a
+   if a == true then
+       OnePieceEgg()
+end end) 
+
+AutoFarm0:Toggle("Auto OpenEgg MHA Max", "", false, function(a)
+   _G.MHAEgg = a
+   if a == true then
+       MHAEgg()
+end end) 
+
+AutoFarm0:Toggle("Auto OpenEgg AOT Max", "", false, function(a)
+   _G.AOTEgg = a
+   if a == true then
+       AOTEgg()
+end end) 
+
+AutoFarm0:Toggle("Auto OpenEgg Demon Max", "", false, function(a)
+   _G.DemonEgg = a
+   if a == true then
+       DemonEgg()
+end end)
+
+AutoFarm0:Toggle("Auto OpenEgg Ghoul Town Max", "", false, function(a)
+    _G.GhoulEgg = a
+    if a == true then
+        GhoulEgg()
+end end)
+
+AutoFarm0:Toggle("Auto OpenEgg SAO Max", "",false, function(a)
+    _G.SAOEgg = a
+    if a == true then
+        SAOEgg()
+end end)
+
+AutoFarm0:Toggle("Auto OpenEgg Bleach Max", "",false, function(a)
+    _G.BleachEgg = a
+    if a == true then
+        BleachEgg()
+end end)
+
+AutoFarm0:Toggle("Auto OpenEgg  JJK Max", "",false, function(a)
+    _G.JJKEgg = a
+    if a == true then
+        JJKEgg()
+end end)
+
+AutoFarm0:Toggle("Auto OpenEgg OPM Max", "",false, function(a)
+    _G.OPMEgg = a
+    if a == true then
+        OPMEgg()
+ end end)
+
+AutoFarm0:Toggle("Auto OpenEgg Crimes lsland Max", "",false, function(a)
+    _G.DSEgg = a
+    if a == true then
+        DSEgg()
+end end)
+
+AutoFarm0:Toggle("Auto OpenEgg Fate Max", "",false, function(a)
+    _G.FateEgg = a
+    if a == true then
+        FateEgg()
+ end end)
+
+AutoFarm0:Toggle("Auto OpenEgg BC Max", "",false, function(a)
+    _G.BCEgg = a
+    if a == true then
+        BCEgg()
+end end)
+
+AutoFarm0:Toggle("Auto OpenEgg FMA Max", "",false, function(a)
+    _G.FMAEgg = a
+    if a == true then
+        FMAEgg()
+end end)
+
+AutoFarm0:Toggle("Auto OpenEgg Slime Max", "", false, function(a)
+    _G.SlimeEgg = a
+    if a == true then
+        SlimeEgg()
+end end)
+
+AutoFarm0:Toggle("Auto OpenEgg FireForce Max", "", function(a)
+    _G.FireForceEgg = a
+    if a == true then
+        FireForceEgg()
+end end)
+
+AutoFarm0:Toggle("Auto OpenEgg RoR Max", "",false, function(a)
+    _G.RoREgg = a
+    if a == true then
+        RoREgg()
+ end end)
+--------------------------------
+function DBZEgg()
+    while _G.DBZEgg == true do
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("DBZEgg")
+end end
+
+function NarutoEgg()
+    while _G.NarutoEgg == true do
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("NarutoEgg")
+end end
+
+function JojoEgg()
+    while _G.JojoEgg == true do
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("JojoEgg")
+end end
+
+function MHAEgg()
+    while _G.MHAEgg == true do
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("MHAEgg")
+end end
+
+function AOTEgg()
+    while _G.AOTEgg == true do
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("AOTEgg")
+end end
+
+function DemonEgg()
+    while _G.DemonEgg == true do
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("DemonEgg")
+end end
+
+function GhoulEgg()
+    while _G.GhoulEgg == true do
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("GhoulEgg")
+end end
+
+function SAOEgg()
+    while _G.SAOEgg == true do
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("SAOEgg")
+end end
+
+function BleachEgg()
+    while _G.BleachEgg == true do
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("BleachEgg")
+end end
+
+function JJKEgg()
+    while _G.JJKEgg == true do
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("JJKEgg")
+end end
+
+function OPMEgg()
+    while _G.OPMEgg == true do
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("OPMEgg")
+end end
+
+function DSEgg()
+  while _G.DSEgg == true do
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("7DSEgg")
+end end
+
+function FateEgg()
+    while _G.FateEgg == true do
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("FateEgg")
+end end
+
+function BCEgg()
+    while _G.BCEgg == true do
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("BCEgg")
+end end
+
+function FMAEgg()
+    while _G.FMAEgg == true do
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("FMAEgg")
+end end
+
+function SlimeEgg()
+    while _G.SlimeEgg == true do
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("SlimeEgg")
+end end
+
+function FireForceEgg()
+    while _G.FireForceEgg == true do
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("FrieForceEgg")
+end end
+
+function ROREgg()
+    while _G.RoREgg == true do
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("RoREgg")
+end end
+--------------------------------
+local Teleport1 = win:Tab("Teleport", "")
+
+Teleport1:Button("Raid", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3805.25439, -186.450363, 890.386414, 1, -7.37264756e-08, 1.92399688e-14, 7.37264756e-08, 1, -8.86048426e-08, -1.27074458e-14, 8.86048426e-08, 1)
+       wait(0.1)
+       game:GetService("ReplicatedStorage").Remote.AttemptTravel:InvokeServer("Tower")
+end)
+
+Teleport1:Button("DBZ", "", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2384.42188, -187.974945, 439.318756, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptTravel:InvokeServer("DBZ")
+end)
+     
+Teleport1:Button("Naruto", "", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-91.8405304, -186.392303, 2606.13867, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptTravel:InvokeServer("Naruto")
+end)
+     
+Teleport1:Button("Jojo", "", function()
+      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(6.4147644, -183.954498, -2400.96777, 1, 8.02247713e-11, -1.16901082e-16, -8.02247713e-11, 1, -1.73651742e-08, 1.15507964e-16, 1.73651742e-08, 1)
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptTravel:InvokeServer("Jojo")
+end)
+     
+Teleport1:Button("OnePiece", "", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1711.25171, -182.73111, 297.744385, 1, 4.37939907e-09, -5.1655542e-15, -4.37939907e-09, 1, -1.89260447e-08, 5.08266948e-15, 1.89260447e-08, 1)
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptTravel:InvokeServer("OnePiece")
+end)
+     
+Teleport1:Button("MHA", "", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1987.42188, -185.212494, 2040.41858, 1, -1.22114772e-08, 9.01403569e-15, 1.22114772e-08, 1, -2.61192739e-08, -8.69508035e-15, 2.61192739e-08, 1)
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptTravel:InvokeServer("MHA")
+end)
+     
+Teleport1:Button("AOT", "", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-713.440552, -183.216171, 546.038696, 1, 1.23029e-08, 5.59927826e-15, -1.23029e-08, 1, 5.18011811e-09, -5.5355475e-15, -5.18011811e-09, 1)
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptTravel:InvokeServer("AOT")
+end)
+     
+Teleport1:Button("DemonSlayer", "", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3050.48511, -183.954498, -1031.86792, 1, -1.30121265e-08, 1.01185345e-14, 1.30121265e-08, 1, -2.42102729e-08, -9.80350766e-15, 2.42102729e-08, 1)
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptTravel:InvokeServer("DemonSlayer")
+end)
+     
+Teleport1:Button("TokyoGhoul", "", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1922.44055, -183.392303, -1584.56152, 1, 8.8817842e-16, 0, 8.8817842e-16, 1, 0, 0, 0, 1)
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptTravel:InvokeServer("TokyoGhoul")
+end)
+     
+Teleport1:Button("HxH", "", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1677.2196, -182.801102, 2275.4436, 1, -8.8817842e-16, 0, -8.8817842e-16, 1, 0, 0, 0, 1)
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptTravel:InvokeServer("HxH")
+end)
+     
+Teleport1:Button("SAO", "", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(331.559479, -183.216125, -520.461426, 1, -3.45271438e-08, -8.22404787e-15, 3.45271438e-08, 1, 1.35145148e-08, 7.75743012e-15, -1.35145148e-08, 1)
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptTravel:InvokeServer("SAO")
+end)
+     
+Teleport1:Button("Bleach", "", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2835.58521, -184.130676, -3644.16797, 1, 3.33066907e-16, 0, 3.33066907e-16, 1, 1.33226763e-15, 0, 1.33226763e-15, 1)
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptTravel:InvokeServer("Bleach")
+end)
+     
+Teleport1:Button("JJK", "", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1795.41455, -184.130676, -2400.96777, 1, -1.77635684e-15, 0, -1.77635684e-15, 1, 0, 0, 0, 1)
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptTravel:InvokeServer("JJK")
+end)
+     
+Teleport1:Button("OPM", "", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1089.65942, -183.392303, 4300.13867, 1, 5.55111512e-17, 0, 5.55111512e-17, 1, 0, 0, 0, 1)
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptTravel:InvokeServer("OPM")
+end)
+     
+Teleport1:Button("7DS", "", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4280.35986, -183.392303, 546.038574, 1, -2.493665e-18, 0, -2.493665e-18, 1, 0, 0, 0, 1)
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptTravel:InvokeServer("7DS")
+end)
+     
+Teleport1:Button("Fate", "", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2381.42188, -184.974945, 4098.46875, 1, 4.4408921e-16, 0, 4.4408921e-16, 1, 1.77635684e-15, 0, 1.77635684e-15, 1)
+        wait(0.1)
+        game:GetService("ReplicatedStorage").Remote.AttemptTravel:InvokeServer("Fate")
+end)
+Teleport1:Button("BlackClover", "", function()
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-63.3955765, -184.329437, -4169.32324, -0.993994296, -8.25272366e-08, 0.109431654, -7.93959885e-08, 1, 3.29710268e-08, -0.109431654, 2.40845797e-08, -0.993994296)
+                wait(0.1)
+             game:GetService("ReplicatedStorage").Remote.AttemptTravel:InvokeServer("BlackClover")
+end)
+             
+Teleport1:Button("FMA", "", function()
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3868.73828, -184.074539, -3281.20459, -0.998212159, 1.39162903e-08, -0.0597701669, 1.47912642e-08, 1, -1.41965426e-08, 0.0597701669, -1.50552388e-08, -0.998212159)
+                wait(0.1)
+             game:GetService("ReplicatedStorage").Remote.AttemptMultiOpen:FireServer("FMAEgg")
+end)
+             
+Teleport1:Button("Slime", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4888.49121, -183.119888, 3777.65454, 0.21122545, 3.18120463e-08, 0.977437377, 1.09694864e-09, 1, -3.27834293e-08, -0.977437377, 7.99689381e-09, 0.21122545)
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remote.AttemptTravel:InvokeServer("Slime")
+end)
+
+Teleport1:Button("ROR", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1886.55786, -185.034531, 5544.33447, -0.992395401, 2.88657116e-08, -0.123090975, 2.12891003e-08, 1, 6.28681889e-08, 0.123090975, 5.97696044e-08, -0.992395401)
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remote.Remote.AttemptTravel:InvokeServer("RoR")
+end)
+--------------------------------
+local Section = win:Tab("SHOP TRAIL", "")
+Section:Button("NPC Trail", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3830.10767, -186.630371, 922.446106, 0.0343776084, 7.00592651e-08, 0.999408901, 5.9427677e-08, 1, -7.21448856e-08, -0.999408901, 6.18727185e-08, 0.0343776084)
+end)
+Section:Label("YenBoost")
+Section:Button("YenBoost 15 Shard", "", function()
+    game:GetService("ReplicatedStorage").Remote.TrialShopPurchase:FireServer("YenBoost")
+end)
+
+Section:Label("DmgBoost")
+Section:Button("DMGBoost 15 Shard", "", function ()
+    game:GetService("ReplicatedStorage").Remote.TrialShopPurchase:FireServer("DMGBoost")
+end)
+Section:Button("SuperDmgBoost 150 Shard", "", function ()
+    game:GetService("ReplicatedStorage").Remote.TrialShopPurchase:FireServer("SuperDmgBoost")
+end)
+
+Section:Label("XPBoost")
+Section:Button("XPBoost 40 Shard", "", function ()
+    game:GetService("ReplicatedStorage").Remote.TrialShopPurchase:FireServer("XPBoost")
+end)
+Section:Button("SuperXPBoost 500 Shard", "", function ()
+    game:GetService("ReplicatedStorage").Remote.TrialShopPurchase:FireServer("SuperXpBoost")
+end)
+
+Section:Label("LuckBoost")
+Section:Button("LuckBoost 40 Shard", "", function ()
+    game:GetService("ReplicatedStorage").Remote.TrialShopPurchase:FireServer("LuckBoost")
+end)
+Section:Button("SuperLuckBoost 400 Shard", "", function ()
+    game:GetService("ReplicatedStorage").Remote.TrialShopPurchase:FireServer("SuperLuckBoost")
+end)
+
+Section:Label("ITEM")
+Section:Button("Ticket 80 Shard", "", function ()
+    game:GetService("ReplicatedStorage").Remote.TrialShopPurchase:FireServer("Ticket")
+end)
+--------------------------------
+local M = win:Tab("Misc", "")
+local Misc2 = M:Label("Speed")
+
+M:Slider("WalkSpeed", "", 0, 250,16, function(v)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
+end)
+ 
+M:Slider("JumpBoot", "", 0, 250,16, function(v)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = v
+end)
+
+M:Label("Other")
+M:Button("REJOIN", "", function()
+   wait(0.1)
+   game:service'TeleportService':Teleport("6299805723")
+end)
+
+M:Button("FPS BOOST", "", function()
+    wait(0.1)
+    for _,v in pairs(workspace:GetDescendants()) do
+        if v.ClassName == "Part"
+        or v.ClassName == "SpawnLocation"
+        or v.ClassName == "WedgePart"
+        or v.ClassName == "Terrain"
+        or v.ClassName == "MeshPart" then
+        v.BrickColor = BrickColor.new(155, 155, 155)
+        v.Material = "Plastic"
+        end
+        end
+        
+        for _,v in pairs(workspace:GetDescendants()) do
+        if v.ClassName == "Decal"
+        or v.ClassName == "Texture" then
+        v:Destroy()
+        end
+        end
+end)
+
+M:Button("AFK MODE", "Anti AFK" , function()
+    game.Players.LocalPlayer.Idled:Connect(function()
+        game:GetService("VirtualUser"):Button1Down(Vector2.new(0,0))
+        game:GetService("VirtualUser"):Button1Up(Vector2.new(0,0))
+    end)
+end)
