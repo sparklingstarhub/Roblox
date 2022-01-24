@@ -1,0 +1,183 @@
+--JJK BLOX
+
+--setting
+_G.TweenSpeed = 700 --basespeed
+_G.Distance = 0 --basedistance
+_G.AutoPrestige = true
+--head
+local ui = game:GetService("CoreGui"):FindFirstChild("FluxLib")
+if ui then
+    game:GetService("TeleportService"):Teleport(game.PlaceId)
+end
+if game.PlaceId ~= 6688650002 then
+    game:GetService("Players").LocalPlayer:Kick("This isnt correct place")
+    end
+--variable
+
+--function
+function checklvl()
+    local lvl = game:GetService("Players").LocalPlayer.Stats.General.Level.Value
+    if lvl >= 0 and lvl < 15 then
+        _G.Monster = "Training Dummy"
+    elseif lvl >= 15 and lvl <30 then
+        _G.Monster = "Metal Training Dummy"
+    elseif lvl >=30 and lvl <75 then
+        _G.Monster = "Grade 1 Curse"
+    elseif lvl >=75 and lvl <150 then
+        _G.Monster = "Grade 2 Curse"
+    elseif lvl >= 150 and lvl < 250 then
+        _G.Monster = "Unique Grade"
+    elseif lvl >= 250 and lvl <350 then
+        _G.Monster = "Corrupt Sorcerer"
+    elseif lvl >= 350 then
+        _G.Monster = "Hito Lackey"
+        end
+end
+function checkcap()
+    local lvl = game:GetService("Players").LocalPlayer.Stats.General.Level.Value
+    local cap = game:GetService("Players").LocalPlayer.Stats.General.LevelCap.Value
+    if lvl >= cap then
+        IsCap = true
+        else
+            IsCap = false
+        end
+    end
+--ui
+local Flux = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/fluxlib.txt")()
+local win = Flux:Window("SayuriHUB [  JJK BLOX  ]", "Rojutsu Blox v1", Color3.fromRGB(178, 102, 255), Enum.KeyCode.RightControl)
+local Main = win:Tab("Main Function", "http://www.wroblox.com/asset/?id=6023426915")
+local Subs = win:Tab("Sub Function", "http://www.wroblox.com/asset/?id=6023426915")
+
+Main:Label("Auto Farm Function")
+Main:Slider("Tween Speed", "Makes your faster.", 1, 1000,_G.TweenSpeed,function(t)
+ _G.TweenSpeed = t
+end)
+Main:Slider("Farm Distance", "Distance", 0, 10,_G.Distance,function(t)
+ _G.Distance = t
+end)
+Main:Toggle("AutoFarm","Toggle Auto Farm",false,function(t)
+    _G.AutoFarm = t
+end)
+
+Subs:Label("AutoStats Function")
+Subs:Dropdown("Select Stats",{"Strength","Endurance","Mana"},function(t)
+    _G.Stats = t
+    end)
+Subs:Toggle("Auto Stats","Toggle Auto Stats",false,function(t)
+    if _G.Stats == nil then return Flux:Notification("Select Stats", "Alright") end
+    _G.AutoStats = t
+end)
+Subs:Label("Teleport Function")
+Subs:Dropdown("Place",{"SpinsNPC","Prestige","AccessoriesNPC","StyleNPC","RecustomizeNPC"},function(t)
+    local t_111,t_211 = game:GetService("TweenService"),TweenInfo.new((game.Workspace[t].HumanoidRootPart.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude/_G.TweenSpeed,Enum.EasingStyle.Linear)
+                                local t_311 = t_111:Create(game.Players.LocalPlayer.Character.HumanoidRootPart,t_211,{CFrame = game.Workspace[t].HumanoidRootPart.CFrame * CFrame.new(0,0,_G.Distance)})
+                                t_311:Play()
+    end)
+--loop function
+coroutine.wrap(function()
+    while true do wait()
+        if _G.AutoFarm then
+            pcall(function()
+                checklvl()
+                checkcap()
+                for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+                    if game:GetService("Players").LocalPlayer["Quest_Data"].ActiveQuest.Value == false then
+                        if v:IsA("Model") and v.Name == "QuestGiver" then
+                        if v.Interact.ProximityPrompt["Quest_Settings"].Enemy.Value == _G.Monster then
+                            local t_1,t_2 = game:GetService("TweenService"),TweenInfo.new((v.HumanoidRootPart.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude/_G.TweenSpeed,Enum.EasingStyle.Linear)
+                            local t_3 = t_1:Create(game.Players.LocalPlayer.Character.HumanoidRootPart,t_2,{CFrame = v.HumanoidRootPart.CFrame})
+                            t_3:Play()
+                            fireproximityprompt(v.Interact.ProximityPrompt)
+                            end
+                        end
+                        else
+                            if game:GetService("Players").LocalPlayer["Quest_Data"].Enemy.Value ~= _G.Monster then
+                            game:GetService("Workspace").EventHolder.AbandonQuest.Reactor:FireServer()
+                            end
+                        end
+                    end
+                end)
+            end
+        end
+    end)()
+coroutine.wrap(function()
+    while true do wait()
+        if _G.AutoFarm then
+           pcall(function()
+               checklvl()
+               checkcap()
+               if not IsCap then
+               for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+                   if game:GetService("Players").LocalPlayer["Quest_Data"].ActiveQuest.Value == true then
+                   if v:IsA("Model") and v.Name == _G.Monster then
+                       if v.Humanoid.Health > 0 then
+                            repeat wait()
+                                
+                                local t_11,t_21 = game:GetService("TweenService"),TweenInfo.new((v.HumanoidRootPart.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude/_G.TweenSpeed,Enum.EasingStyle.Linear)
+                                local t_31 = t_11:Create(game.Players.LocalPlayer.Character.HumanoidRootPart,t_21,{CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,0,_G.Distance)})
+                                t_31:Play()
+                            until
+                                v.Humanoid.Health <= 0 or _G.AutoFarm == false 
+                       end
+                   end
+                   end
+               end
+               else
+                   if _G.AutoPrestige then
+                       local t_1111,t_2111 = game:GetService("TweenService"),TweenInfo.new((game.Workspace["Prestige"].HumanoidRootPart.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude/_G.TweenSpeed,Enum.EasingStyle.Linear)
+                                local t_3111 = t_1111:Create(game.Players.LocalPlayer.Character.HumanoidRootPart,t_2111,{CFrame = game.Workspace["Prestige"].HumanoidRootPart.CFrame * CFrame.new(0,0,_G.Distance)})
+                                t_3111:Play()
+                                fireproximityprompt(game.Workspace["Prestige"].Interact.ProximityPrompt)
+                       end
+               end
+               end) 
+        end
+        end
+end)()
+coroutine.wrap(function()
+    while true do wait()
+        if _G.AutoFarm then
+            pcall(function()
+                game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+            end)    
+            else
+                pcall(function()
+                game.Players.LocalPlayer.Character.Humanoid:ChangeState(18)
+                end)
+        end
+    end
+    end)()
+coroutine.wrap(function()
+    while true do wait()
+        if _G.AutoFarm then
+           pcall(function()
+              pcall(function()
+                  game:GetService("Workspace").EventHolder["Combat_Damage"].Reactor:FireServer("No",1)
+                  game:GetService("Workspace").EventHolder["Combat_Damage"].Reactor:FireServer("No",2)
+                  game:GetService("Workspace").EventHolder["Combat_Damage"].Reactor:FireServer("No",3)
+                  game:GetService("Workspace").EventHolder["Combat_Damage"].Reactor:FireServer("Yes",4)
+                  end)
+        end)
+        end
+   end
+end)()
+
+coroutine.wrap(function()
+    while true do wait()
+        if _G.AutoStats then
+            pcall(function()
+                game:GetService("Workspace").EventHolder.AddPoints.Reactor:FireServer(_G.Stats,1)
+                end)
+            end
+        end
+end)()
+--anti afk
+coroutine.wrap(function()
+    game.Players.LocalPlayer.Idled:connect(function()
+        local at = game:GetService("VirtualUser")
+        at:CaptureController()
+        at:Button1Click(Vector2.new(0,0))
+        at:Button1Down(Vector2.new(0,0))
+        warn("Anti Afk")
+        end)
+    end)()
