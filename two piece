@@ -1,0 +1,62 @@
+local ui = game:GetService("CoreGui"):FindFirstChild("FluxLib")
+if ui then
+    ui:Destroy()
+    end
+
+local Flux = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/fluxlib.txt")()
+local win = Flux:Window("Sayurihub", "True Piece", Color3.fromRGB(178, 102, 255), Enum.KeyCode.RightControl)
+local main = win:Tab("Main", "http://www.roblox.com/asset/?id=6023426915")
+
+local mon = {}
+main:Label("Auto Farm")
+for i,v in pairs(game.Workspace:GetChildren()) do
+    if string.find(v.Name,"Lv") then
+        if not table.find(mon,v.name) then
+            table.insert(mon,v.Name)
+            end
+        end
+    end
+main:Dropdown("Select Monster: ",{unpack(mon)},function(t)
+    _G.Monster = t
+    end)
+main:Toggle("Auto Farm","Auto Farm Toggle",false,function(t)
+    _G.AutoFarm = t
+    if _G.AutoFarm == true then
+        if(not game.Workspace:FindFirstChild("FlyingPart")) then
+        local a = Instance.new("Part",game.Workspace)
+        a.Name = "FlyingPart"
+        a.Anchored = true
+        a.Size = Vector3.new(20,0.5,20)
+        a.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0,400,0)
+        
+        end
+        else
+            local a = game.Workspace:FindFirstChild("FlyingPart") 
+            a:Destroy()
+    end
+    while _G.AutoFarm do wait()
+        pcall(function()
+                local a = game.Workspace:FindFirstChild("FlyingPart")
+                for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == _G.Monster then
+                        v.HumanoidRootPart.Anchored = true
+                        v.HumanoidRootPart.CFrame = a.CFrame*CFrame.new(0,3,0)
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,0,7)
+                        local vu = game:GetService("VirtualUser")
+                        vu:Button1Down(Vector2.new(0,0))
+                        end
+                    end
+            end)
+        end
+end)
+local z 
+z = hookfunction(getrenv().wait,function(t)
+    if not checkcaller() then
+    if(getcallingscript().name =="Attack") then
+         print("bypassed")
+         return z()
+    end
+    return z(t)
+    end
+    return z(t)
+    end)
