@@ -69,10 +69,8 @@ function CheckLvl()
         cmonster = "Skypiea Lv 600"
     elseif lvl >= 750 and lvl < 900 then
         cmonster = "??? Lv 750"
-        elseif lvl >= 900 then
-            cmonster = "Sea Beast Lv 900"
-        end
     end
+end
 function pos(s)
     
     return _G.Pos[s:split("Lv ")[2]]
@@ -236,7 +234,7 @@ local z
 z = hookfunction(getrenv().wait,function(t)
     if not checkcaller() then
     if(getcallingscript().name =="Attack") then
-         print("fake fast attack")
+         print("SayuriHUB")
          return z()
     end
     return z(t)
