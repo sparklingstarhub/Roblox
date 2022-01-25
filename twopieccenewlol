@@ -1,0 +1,245 @@
+wait(3)
+if game.PlaceId ~= 5303541547 then
+    game.Players.LocalPlayer:Kick("Error")
+end
+if not syn then
+    game.Players.LocalPlayer:Kick("Synapes X Only")
+    end
+local ui = game:GetService("CoreGui"):FindFirstChild("FluxLib")
+if ui then
+    ui:Destroy()
+end
+if not game:GetService("Workspace"):FindFirstChild("FlyingPart") then
+            local a = Instance.new("Part",game.Workspace)
+            a.Name = "FlyingPart"
+            a.Position =game.Players.LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0,300,0)
+            a.Anchored = true
+            a.Size = Vector3.new(50,0.5,50)
+            end
+local Flux = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/fluxlib.txt")()
+local win = Flux:Window("SayuriHUB", "Two Piece (NEW)", Color3.fromRGB(178, 102, 255), Enum.KeyCode.RightControl)
+local main = win:Tab("Main", "http://www.roblox.com/asset/?id=6023426915")
+local stats = win:Tab("Stats", "http://www.roblox.com/asset/?id=6023426915")
+local subf = win:Tab("Misc", "http://www.roblox.com/asset/?id=6023426915")
+_G.Pos = {}
+main:Label("Auto Farm")
+function weapon()
+    local weapon = {}
+    if game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool") then
+        game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool").Parent = game.Players.LocalPlayer.Backpack
+        end
+    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        if v:IsA("Tool") then
+            if(not table.find(weapon,v.name)) then
+            table.insert(weapon,v.name)
+            end
+            end
+    end
+    return weapon
+end
+function monster()
+    local monster = {}
+    for i,v in pairs(game.Workspace:GetChildren()) do
+            if string.find(v.Name,"Lv") then
+                if(not table.find(monster,v.name)) then
+                table.insert(monster,v.name)
+                table.insert(_G.Pos,tonumber(v.Name:split("Lv ")[2]),v.HumanoidRootPart.Position)
+                    end
+                end
+    end
+    return monster
+end
+function CheckLvl()
+    local lvl = game:GetService("Players").LocalPlayer.Data.Levels.Value
+    if lvl >= 0 and lvl < 50 then
+        cmonster = "Bandit Lv 1"
+    elseif lvl >= 50 and lvl < 100 then
+        cmonster = "Marine Lv 50"
+    elseif lvl >= 100 and lvl < 150 then
+        cmonster = "Monkey Lv 100"
+    elseif lvl >= 150 and lvl < 250 then
+        cmonster = "Banana Lv 150"
+    elseif lvl >= 250 and lvl < 400 then
+        cmonster = "King Monkey Lv 250"
+    elseif lvl >= 400 and lvl < 500 then
+        cmonster = "Snow bandit Lv 400"
+    elseif lvl >= 500 and lvl < 600 then
+        cmonster = "Yeti Lv 500"
+    elseif lvl >= 600 and lvl < 750 then
+        cmonster = "Skypiea Lv 600"
+    elseif lvl >= 750 and lvl < 900 then
+        cmonster = "??? Lv 750"
+        elseif lvl >= 900 then
+            cmonster = "Sea Beast Lv 900"
+        end
+    end
+function pos(s)
+    
+    return _G.Pos[s:split("Lv ")[2]]
+    end
+main:Dropdown("Select Weapon: ",{unpack(weapon())},function(t)
+    _G.Weapon = t 
+    end)
+main:Dropdown("Select Monster: ",{unpack(monster())},function(t)
+    _G.Monster = t
+end)
+main:Dropdown("Select Mode: ",{"Select Monster","Select All","Auto Select"},function(t)
+    _G.Mode = t
+end)
+main:Toggle("Auto Farm","Auto Farm Toggle",false,function(t)
+    _G.AutoFarm = t
+    if not _G.AutoFarm then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Spawn.one.CFrame
+        end
+end)
+stats:Slider("Melee", "Stats", 0, 3000,0,function(t)
+    _G.Melee = t
+end)
+stats:Slider("Defense", "Stats", 0, 3000,0,function(t)
+    _G.Defense = t
+end)
+stats:Slider("Sword", "Stats", 0, 3000,0,function(t)
+    _G.Sword = t
+end)
+stats:Slider("Power", "Stats", 0, 3000,0,function(t)
+    _G.Power = t
+end)
+stats:Toggle("Auto Stats","Toggle",false,function(t)
+    if(_G.Melee == nil) then _G.Melee = 0 end
+    if(_G.Defense == nil) then _G.Defense = 0 end
+    if(_G.Sword == nil) then _G.Sword = 0 end
+    if(_G.Power == nil) then _G.Power = 0 end
+    _G.Autostats = t
+    
+end)
+
+subf:Toggle("Bring Fruit","Bring",false,function(t)
+    _G.BringFruit = t
+    while _G.BringFruit do wait()
+        for i,v in pairs(game.Workspace:GetChildren()) do
+            if v:IsA("Tool") then
+                v.Handle.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                end
+            end
+        end
+end)
+subf:Toggle("Auto Bounty","Bounty",false,function(t)
+    _G.Bounty = t
+end)
+coroutine.wrap(function()
+    while true do wait()
+    if _G.Bounty then
+    pcall(function()
+        local a = game:GetService("Workspace"):FindFirstChild("FlyingPart")
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = a.CFrame*CFrame.new(0,3,5)
+        if _G.Weapon == nil then _G.Weapon = "Combat" end
+        if (game.Players.LocalPlayer.Backpack:FindFirstChild(_G.Weapon)) then
+            game.Players.LocalPlayer.Backpack[_G.Weapon].Parent = game.Players.LocalPlayer.Character
+            end
+        if not game.Players.LocalPlayer.Character:FindFirstChild("Safe") then
+            local safe = game:GetService("Workspace"):FindFirstChild("SAFEZONE").Script.Safe:Clone()
+            safe.Parent = game.Players.LocalPlayer.Character
+        end
+        for i,v in pairs(game.Players:GetChildren()) do
+        if v.Name ~= game.Players.LocalPlayer.Name then
+                if not v.Character:FindFirstChild("Safe") then
+                    repeat wait()
+                        v.Character.HumanoidRootPart.Anchored = true
+                    v.Character.HumanoidRootPart.CFrame = a.CFrame*CFrame.new(0,3,0)
+                    local vu = game:GetService("VirtualUser")
+                    vu:Button1Down(Vector2.new(0,0))
+                    until
+                    _G.Bounty == false or not v.HumanoidRootPart or not v.Humanoid
+                    end
+            end
+        end
+    end)
+    end
+    end
+    end)()
+coroutine.wrap(function()
+    while true do wait()
+    if _G.AutoFarm then
+    pcall(function()
+        if _G.Weapon == nil then _G.Weapon = "Combat" end
+        if _G.Monster == nil then _G.Monster = CheckLvl end
+        if _G.Mode == nil then _G.Mode = "Auto Select" end
+        if (game.Players.LocalPlayer.Backpack:FindFirstChild(_G.Weapon)) then
+            game.Players.LocalPlayer.Backpack[_G.Weapon].Parent = game.Players.LocalPlayer.Character
+            end
+       for i,v in pairs(game.Workspace:GetChildren()) do
+           local a = game:GetService("Workspace"):FindFirstChild("FlyingPart")
+           if _G.Mode == "Select Monster" then
+            if v:IsA("Model") and v.Name == _G.Monster then
+                a.Anchored = false
+                a.Position = Vector3.new(pos(v.Name)) +Vector3.new(0,400,0)
+                a.Anchored = true
+                v.HumanoidRootPart.Anchored = true
+                v.HumanoidRootPart.CFrame = a.CFrame*CFrame.new(0,3,0)
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,0,7)
+                local vu = game:GetService("VirtualUser")
+                vu:Button1Down(Vector2.new(0,0))
+            end
+           elseif(_G.Mode == "Auto Select") then
+               CheckLvl()
+                if v:IsA("Model") and v.Name == cmonster then
+                    a.Anchored = false
+                a.Position = Vector3.new(pos(v.Name)) +Vector3.new(0,400,0)
+                a.Anchored = true
+                    v.HumanoidRootPart.Anchored = true
+                v.HumanoidRootPart.CFrame = a.CFrame*CFrame.new(0,3,0)
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,0,7)
+                local vu = game:GetService("VirtualUser")
+                vu:Button1Down(Vector2.new(0,0))
+                end
+           elseif(_G.Mode == "Select All") then
+                if v:IsA("Model") and table.find(monster(),v.Name) then
+                a.Anchored = false
+                a.Position = Vector3.new(pos(v.Name)) +Vector3.new(0,400,0)
+                a.Anchored = true
+                v.HumanoidRootPart.Anchored = true
+                v.HumanoidRootPart.CFrame = a.CFrame*CFrame.new(0,3,0)
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,0,7)
+                local vu = game:GetService("VirtualUser")
+                vu:Button1Down(Vector2.new(0,0))
+                
+                end
+           end
+           end
+    end)
+    end
+    end
+end)()
+coroutine.wrap(function()
+    while true do wait()
+        if _G.Autostats then
+            pcall(function()
+                local malee = game:GetService("Players").LocalPlayer.Data.Melee.Value
+                local defense = game:GetService("Players").LocalPlayer.Data.Defense.Value
+                local sword = game:GetService("Players").LocalPlayer.Data.Sword.Value
+                local power = game:GetService("Players").LocalPlayer.Data.Power.Value
+                if(malee<_G.Melee) then
+                    game:GetService("Players").LocalPlayer.PlayerGui.GUI.Stats.Melee.TextButton.RemoteEvent:FireServer("1",game.Players.LocalPlayer)
+                elseif(malee>=_G.Melee and defense < _G.Defense) then
+                    game:GetService("Players").LocalPlayer.PlayerGui.GUI.Stats.Defense.TextButton.RemoteEvent:FireServer("1",game.Players.LocalPlayer)
+                elseif(malee>=_G.Melee and defense >= _G.Defense and sword < _G.Sword) then
+                   game:GetService("Players").LocalPlayer.PlayerGui.GUI.Stats.Sword.TextButton.RemoteEvent:FireServer("1",game.Players.LocalPlayer)
+                elseif(malee>=_G.Melee and defense >= _G.Defense and sword >= _G.Sword and power < _G.Power) then   
+                    game:GetService("Players").LocalPlayer.PlayerGui.GUI.Stats.Power.TextButton.RemoteEvent:FireServer("1",game.Players.LocalPlayer)
+                end
+                end)
+ 
+            end
+        end
+    end)()
+local z 
+z = hookfunction(getrenv().wait,function(t)
+    if not checkcaller() then
+    if(getcallingscript().name =="Attack") then
+         print("fake fast attack")
+         return z()
+    end
+    return z(t)
+    end
+    return z(t)
+    end)
