@@ -17,32 +17,34 @@ if not table.find(h, v.Name) then
     table.insert(h, v.Name)
 end
 end
-Main:Label("Auto Farm Function (not waork)")
+Main:Label("Auto Farm Function")
 Main:Dropdown("Select Enemies", {unpack(h)}, function(t)
     _G.m = t
 end)
 
-Main:Toggle("Auto Farm", "", false, function(u)
+Main:Toggle("Auto Farm", "Auto Click", false, function(u)
     _G.k = u
-    if u == true then
-        AutoFarm()
-end end) 
-
-function AutoFarm()
-while _G.k == true do 
-    wait()
-    for i,v in pairs(ws.Worlds[Clients.World.Value].Enemies:GetChildren()) do
+    while true do
+        wait()
+   if _G.k then
+    pcall(function()
+        for i,v in pairs(ws.Worlds[Clients.World.Value].Enemies:GetChildren()) do
         if v.Name == _G.m then
             repeat wait()
             local T_1,T_2 = ts,TweenInfo.new(1,Enum.EasingStyle.Linear)
             local T_3 = T_1:Create(Clients.Character.PrimaryPart,T_2,{CFrame = v.PrimaryPart.CFrame})
             T_3:Play()
             rs.Bindable.SendPet:Fire(v, true, false);
-        until not v or not v.PrimaryPart or not v.Health or v.Health.Value == 0
+            game.ReplicatedStorage.Remote.ClickerDamage:FireServer()
+            print("run")
+        until not v or not v.PrimaryPart or not v.Health or v.Health.Value == 0 or _G.k == false
+        end
     end
+end)
 end
 end
-end
+end) 
+
 
 local Section = win:Tab("Summon Defense", "")
 Section:Button("SummonDefense Jojo", "SummonDefense Jojo", function()
